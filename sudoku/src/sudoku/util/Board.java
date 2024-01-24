@@ -1,6 +1,5 @@
 package sudoku.util;
 
-
 /**
  * Creates and solves sudoku boards.
  * @author Morgan Sawyer
@@ -34,14 +33,13 @@ public class Board {
 	
 	/**
 	 * Returns true if the row of the board allows the number to be placed
-	 * @param board sudoku board
 	 * @param number number to add to the board
 	 * @param row row to check in the sudoku board
 	 * @return true if the row of the board allows the number to be place,
 	 * 		otherwise false.
 	 * @throws IllegalArgumentException 
 	 */
-	public boolean validNumberInRow(int[][] board, int number, int row) {
+	public boolean validNumberInRow(int number, int row) {
 		
 		if (number < 0 || number > GRID_SIZE) {
 			invalidNumberException();
@@ -58,14 +56,13 @@ public class Board {
 	
 	/**
 	 * Returns true if the column of the board allows the number to be placed
-	 * @param board sudoku board
 	 * @param number number to add to the board
 	 * @param column column to check in the sudoku board
 	 * @return true if the column of the board allows the number to be place,
 	 * 		otherwise false.
 	 * @throws IllegalArgumentException 
 	 */
-	public boolean validNumberInColumn(int[][] board, int number, int column) {
+	public boolean validNumberInColumn(int number, int column) {
 		
 		if (number < 0 || number > GRID_SIZE) {
 			invalidNumberException();
@@ -82,7 +79,6 @@ public class Board {
 	
 	/**
 	 * Returns true if the small box of the board allows the number to be placed
-	 * @param board sudoku board
 	 * @param number number to add to the board
 	 * @param row row to check in the sudoku board
 	 * @param column column to check in the sudoku board
@@ -90,7 +86,7 @@ public class Board {
 	 * 		otherwise false.
 	 * @throws IllegalArugmentException
 	 */
-	public boolean validNumberInSmallBox(int[][] board, int number, int row, int column) {
+	public boolean validNumberInSmallBox(int number, int row, int column) {
 		
 		if (number < 0 || number > GRID_SIZE) {
 			invalidNumberException();
@@ -117,10 +113,10 @@ public class Board {
 	 * @param column column to check in the sudoku board
 	 * @return true if the number is valid in the board, otherwise false.
 	 */
-	public boolean isValidNumber(int[][] board, int number, int row, int column) {
-		return validNumberInRow(board, number, row) &&
-				validNumberInColumn(board, number, column) &&
-				validNumberInSmallBox(board, number, row, column);
+	public boolean isValidNumber(int number, int row, int column) {
+		return validNumberInRow(number, row) &&
+				validNumberInColumn(number, column) &&
+				validNumberInSmallBox(number, row, column);
 	}
 	
 	/**
@@ -129,16 +125,16 @@ public class Board {
 	 * @param board sudoku board
 	 * @return true if the board solved, otherwise returns false.
 	 */
-	public boolean solveBoard(int[][] board) {
+	public boolean solveBoard() {
 		
 		for (int row = 0; row < GRID_SIZE; row++) {
 			for (int column = 0; column < GRID_SIZE; column++) {
 				if (board[row][column] == 0) {
 					for (int number = 1; number <= GRID_SIZE; number++) {
-						if (isValidNumber(board, number, row, column)) {
+						if (isValidNumber(number, row, column)) {
 							board[row][column] = number;
 							
-							if (solveBoard(board)) {
+							if (solveBoard()) {
 								return true;
 							} else {
 								board[row][column] = 0;
@@ -161,6 +157,25 @@ public class Board {
 	private void invalidNumberException() {
 		throw new IllegalArgumentException("Sudoku Program Doesn't Allow "
 				+ "for Numbers Less than 0 or Greater than 9 in the Board");
+	}
+	
+	/**
+	 * Prints the board to the console.
+	 */
+	public void printBoard() {
+		
+		for (int row = 0; row < GRID_SIZE; row++) {
+			if (row % 3 == 0 && row != 0) {
+				System.out.println("---+---+---");
+			}
+			for (int column = 0; column < GRID_SIZE; column++) {
+				if (column % 3 == 0 && column != 0) {
+					System.out.print("|");
+				}
+				System.out.print(board[row][column]);
+			}
+			System.out.println();
+		}
 	}
 	
 }
