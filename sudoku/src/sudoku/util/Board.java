@@ -2,7 +2,7 @@ package sudoku.util;
 
 
 /**
- * 
+ * Creates and solves sudoku boards.
  * @author Morgan Sawyer
  */
 public class Board {
@@ -33,11 +33,12 @@ public class Board {
 	}
 	
 	/**
-	 * 
-	 * @param board
-	 * @param number
-	 * @param row
-	 * @return
+	 * Returns true if the row of the board allows the number to be placed
+	 * @param board sudoku board
+	 * @param number number to add to the board
+	 * @param row row to check in the sudoku board
+	 * @return true if the row of the board allows the number to be place,
+	 * 		otherwise false.
 	 * @throws IllegalArgumentException 
 	 */
 	public boolean validNumberInRow(int[][] board, int number, int row) {
@@ -56,11 +57,12 @@ public class Board {
 	}
 	
 	/**
-	 * 
-	 * @param board
-	 * @param number
-	 * @param column
-	 * @return
+	 * Returns true if the column of the board allows the number to be placed
+	 * @param board sudoku board
+	 * @param number number to add to the board
+	 * @param column column to check in the sudoku board
+	 * @return true if the column of the board allows the number to be place,
+	 * 		otherwise false.
 	 * @throws IllegalArgumentException 
 	 */
 	public boolean validNumberInColumn(int[][] board, int number, int column) {
@@ -79,12 +81,13 @@ public class Board {
 	}
 	
 	/**
-	 * 
-	 * @param board
-	 * @param number
-	 * @param row
-	 * @param column
-	 * @return
+	 * Returns true if the small box of the board allows the number to be placed
+	 * @param board sudoku board
+	 * @param number number to add to the board
+	 * @param row row to check in the sudoku board
+	 * @param column column to check in the sudoku board
+	 * @return true if the small box of the board allows the number to be place,
+	 * 		otherwise false.
 	 * @throws IllegalArugmentException
 	 */
 	public boolean validNumberInSmallBox(int[][] board, int number, int row, int column) {
@@ -107,12 +110,12 @@ public class Board {
 	}
 	
 	/**
-	 * Returns true if all three valid number methods 
-	 * @param board
-	 * @param number
-	 * @param row
-	 * @param column
-	 * @return
+	 * Returns true if the number is valid in the specified row, column, and small box.
+	 * @param board sudoku board
+	 * @param number number to add to the board
+	 * @param row row to check in the sudoku board
+	 * @param column column to check in the sudoku board
+	 * @return true if the number is valid in the board, otherwise false.
 	 */
 	public boolean isValidNumber(int[][] board, int number, int row, int column) {
 		return validNumberInRow(board, number, row) &&
