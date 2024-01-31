@@ -1,5 +1,7 @@
 package sudoku.util;
 
+import java.util.Arrays;
+
 /**
  * Creates and solves sudoku boards.
  * @author Morgan Sawyer
@@ -29,6 +31,13 @@ public class Board {
 	 */
 	public Board() {
 		this.board = DEFAULT_BOARD;
+	}
+	
+	/**
+	 * Default Constructor for the Sudoku Board. 
+	 */
+	public Board(int[][] board) {
+		this.board = board;
 	}
 	
 	/**
@@ -177,5 +186,40 @@ public class Board {
 			System.out.println();
 		}
 	}
-	
+
+	/**
+	 * Generates a unique hash code for boards.
+	 * @return the integer value of the hash code.
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(board);
+		return result;
+	}
+
+	/**
+	 * Checks two boards and returns true if they are equal to each other.
+	 * @param obj the other board to check.
+	 * @return true if boards numbers are the same, false otherwise.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Board other = (Board) obj;
+		for (int i = 0; i < GRID_SIZE; i++) {
+			for (int j = 0; j < GRID_SIZE; j++) {
+				if (this.board[i][j] != other.board[i][j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }
